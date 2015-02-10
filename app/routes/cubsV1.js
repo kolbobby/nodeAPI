@@ -24,7 +24,9 @@ module.exports = function(routerV1) {
 
 		// create a cub (accessed at POST /api/v1/cubs)
 		.post(ensureAuthenticated, function(req, res) {
-			CubController.CreateCub(req, res);
+			CubController.CreateCub(req, res, function(message) {
+				res.json(message);
+			});
 		});
 
 	// routes that end in /cubs/:cub_id
@@ -38,11 +40,15 @@ module.exports = function(routerV1) {
 
 		// update cub with id (accessed at PUT /api/v1/cubs/:cub_id)
 		.put(ensureAuthenticated, function(req, res) {
-			CubController.UpdateCub(req, res);
+			CubController.UpdateCub(req, res, function(message) {
+				res.json(message);
+			});
 		})
 
 		// delete cub with id (accessed at DELETE /api/v1/cubs/:cub_id)
 		.delete(ensureAuthenticated, function(req, res) {
-			CubController.DeleteCub(req, res);
+			CubController.DeleteCub(req, res, function(message) {
+				res.json(message);
+			});
 		});
 };

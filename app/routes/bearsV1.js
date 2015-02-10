@@ -24,7 +24,9 @@ module.exports = function(routerV1) {
 
 		// create a bear (accessed at POST /api/v1/bears)
 		.post(ensureAuthenticated, function(req, res) {
-			BearController.CreateBear(req, res);
+			BearController.CreateBear(req, res, function(message) {
+				res.json(message);
+			});
 		});
 
 	// routes that end in /bears/:bear_id
@@ -38,11 +40,15 @@ module.exports = function(routerV1) {
 
 		// update bear with id (accessed at PUT /api/v1/bears/:bear_id)
 		.put(ensureAuthenticated, function(req, res) {
-			BearController.UpdateBear(req, res);
+			BearController.UpdateBear(req, res, function(message) {
+				res.json(message);
+			});
 		})
 
 		// delete bear with id (accessed at DELETE /api/v1/bears/:bear_id)
 		.delete(ensureAuthenticated, function(req, res) {
-			BearController.DeleteBear(req, res);
+			BearController.DeleteBear(req, res, function(message) {
+				res.json(message);
+			});
 		});
 };

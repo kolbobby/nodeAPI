@@ -14,7 +14,7 @@ exports.GetCubs = function(req, res, cb) {
 		cb(cubs);
 	});
 };
-exports.CreateCub = function(req, res) {
+exports.CreateCub = function(req, res, cb) {
 	var cub = new Cub();
 	cub.name = req.body.name;
 	cub.addedBy = req.user.id;
@@ -50,7 +50,7 @@ exports.CreateCub = function(req, res) {
 			});
 		});
 
-		res.json({ message: 'V1: Cub created!' });
+		cb({ message: 'V1: Cub created!' });
 	});
 };
 
@@ -62,7 +62,7 @@ exports.GetCub = function(req, res, cb) {
 		cb(cub);
 	});
 };
-exports.UpdateCub = function(req, res) {
+exports.UpdateCub = function(req, res, cb) {
 	Cub.findById(req.params.cub_id, function(err, cub) {
 		if(err)
 			res.send(err);
@@ -75,13 +75,13 @@ exports.UpdateCub = function(req, res) {
 			if(err)
 				res.send(err);
 			if(cub.addedBy != req.user.id)
-				res.json({ message: "You are not the owner!" });
+				cb({ message: "You are not the owner!" });
 
-			res.json({ message: 'V1: Cub updated!' });
+			cb({ message: 'V1: Cub updated!' });
 		});
 	});
 };
-exports.DeleteCub = function(req, res) {
+exports.DeleteCub = function(req, res, cb) {
 	Cub.remove({
 		_id: req.params.cub_id,
 		addedBy: req.user.id
@@ -89,9 +89,9 @@ exports.DeleteCub = function(req, res) {
 		if(err)
 			res.send(err);
 		if(cub.addedBy != req.user.id)
-			res.json({ message: "You are not the owner!" });
+			cb({ message: "You are not the owner!" });
 
-		res.json({ message: 'V1: Cub deleted!' });
+		cb({ message: 'V1: Cub deleted!' });
 	});
 };
 

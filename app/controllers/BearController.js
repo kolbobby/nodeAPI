@@ -13,7 +13,7 @@ exports.GetBears = function(req, res, cb) {
 		cb(bears);
 	});
 };
-exports.CreateBear = function(req, res) {
+exports.CreateBear = function(req, res, cb) {
 	var bear = new Bear();
 	bear.name = req.body.name;
 	bear.addedBy = req.user.id;
@@ -22,7 +22,7 @@ exports.CreateBear = function(req, res) {
 		if(err)
 			res.send(err);
 
-		res.json({ message: 'V1: Bear created!' });
+		cb({ message: 'V1: Bear created!' });
 	});
 };
 
@@ -34,12 +34,12 @@ exports.GetBear = function(req, res, cb) {
 		cb(bear);
 	});
 };
-exports.UpdateBear = function(req, res) {
+exports.UpdateBear = function(req, res, cb) {
 	Bear.findById(req.params.bear_id, function(err, bear) {
 		if(err)
 			res.send(err);
 		if(bear.addedBy != req.user.id)
-			res.json({ message: "You are not the owner!" });
+			cb({ message: "You are not the owner!" });
 
 		bear.name = req.body.name;
 
@@ -47,11 +47,11 @@ exports.UpdateBear = function(req, res) {
 			if(err)
 				res.send(err);
 
-			res.json({ message: 'V1: Bear updated!' });
+			cb({ message: 'V1: Bear updated!' });
 		});
 	});
 };
-exports.DeleteBear = function(req, res) {
+exports.DeleteBear = function(req, res, cb) {
 	Bear.remove({
 		_id: req.params.bear_id,
 		addedBy: req.user.id
@@ -59,9 +59,9 @@ exports.DeleteBear = function(req, res) {
 		if(err)
 			res.send(err);
 		if(bear.addedBy != req.user.id)
-			res.json({ message: "You are not the owner!" });
+			cb({ message: "You are not the owner!" });
 
-		res.json({ message: 'V1: Bear deleted!' });
+		cb({ message: 'V1: Bear deleted!' });
 	});
 };
 
