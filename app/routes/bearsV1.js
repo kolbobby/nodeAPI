@@ -17,7 +17,9 @@ module.exports = function(routerV1) {
 	routerV1.route('/bears')
 		// get all bears (accessed at GET /api/v1/bears)
 		.get(function(req, res) {
-			BearController.GetBears(req, res);
+			BearController.GetBears(req, res, function(bears) {
+				res.json(bears);
+			});
 		})
 
 		// create a bear (accessed at POST /api/v1/bears)
@@ -29,7 +31,9 @@ module.exports = function(routerV1) {
 	routerV1.route('/bears/:bear_id')
 		// get bear with id (accessed at GET /api/v1/bears/:bear_id)
 		.get(function(req, res) {
-			BearController.GetBear(req, res);
+			BearController.GetBear(req, res, function(bear) {
+				res.json(bear);
+			});
 		})
 
 		// update bear with id (accessed at PUT /api/v1/bears/:bear_id)

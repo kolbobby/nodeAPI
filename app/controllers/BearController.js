@@ -5,12 +5,12 @@
 
 var Bear = require('../models/bear');
 
-exports.GetBears = function(req, res) {
+exports.GetBears = function(req, res, cb) {
 	Bear.find(function(err, bears) {
 		if(err)
 			res.send(err);
 
-		res.json(bears);
+		cb(bears);
 	});
 };
 exports.CreateBear = function(req, res) {
@@ -26,12 +26,12 @@ exports.CreateBear = function(req, res) {
 	});
 };
 
-exports.GetBear = function(req, res) {
+exports.GetBear = function(req, res, cb) {
 	Bear.findById(req.params.bear_id, function(err, bear) {
 		if(err)
 			res.send(err);
 
-		res.json(bear);
+		cb(bear);
 	});
 };
 exports.UpdateBear = function(req, res) {

@@ -6,12 +6,12 @@
 var Cub = require('../models/cub');
 var Bear = require('../models/bear');
 
-exports.GetCubs = function(req, res) {
+exports.GetCubs = function(req, res, cb) {
 	Cub.find(function(err, cubs) {
 		if(err)
 			res.send(err);
 
-		res.json(cubs);
+		cb(cubs);
 	});
 };
 exports.CreateCub = function(req, res) {
@@ -54,12 +54,12 @@ exports.CreateCub = function(req, res) {
 	});
 };
 
-exports.GetCub = function(req, res) {
+exports.GetCub = function(req, res, cb) {
 	Cub.findById(req.params.cub_id, function(err, cub) {
 		if(err)
 			res.send(err);
 
-		res.json(cub);
+		cb(cub);
 	});
 };
 exports.UpdateCub = function(req, res) {

@@ -17,7 +17,9 @@ module.exports = function(routerV1) {
 	routerV1.route('/cubs')
 		// get all cubs (accessed at GET /api/v1/cubs)
 		.get(function(req, res) {
-			CubController.GetCubs(req, res);
+			CubController.GetCubs(req, res, function(cubs) {
+				res.json(cubs);
+			});
 		})
 
 		// create a cub (accessed at POST /api/v1/cubs)
@@ -29,7 +31,9 @@ module.exports = function(routerV1) {
 	routerV1.route('/cubs/:cub_id')
 		// get cub with id (accessed at GET /api/v1/cubs/:cub_id)
 		.get(function(req, res) {
-			CubController.GetCub(req, res);
+			CubController.GetCub(req, res, function(cub) {
+				res.json(cub);
+			});
 		})
 
 		// update cub with id (accessed at PUT /api/v1/cubs/:cub_id)
