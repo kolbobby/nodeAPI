@@ -1,3 +1,3 @@
 module.exports = {
-	'url': 'YOUR DATABASE LINK HERE'
+	'url': 'mongodb://kolbobby:rusty23@novus.modulusmongo.net:27017/yPab3yxe'
 };
