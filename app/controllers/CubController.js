@@ -74,6 +74,7 @@ exports.UpdateCub = function(req, res, cb) {
 		cub.save(function(err) {
 			if(err)
 				res.send(err);
+
 			if(cub.addedBy != req.user.id)
 				cb({ message: "You are not the owner!" });
 
@@ -82,16 +83,43 @@ exports.UpdateCub = function(req, res, cb) {
 	});
 };
 exports.DeleteCub = function(req, res, cb) {
-	Cub.remove({
-		_id: req.params.cub_id,
-		addedBy: req.user.id
-	}, function(err, cub) {
-		if(err)
-			res.send(err);
-		if(cub.addedBy != req.user.id)
-			cb({ message: "You are not the owner!" });
+	Cub.findById(req.params.cub_id, function(err, cub) {
+		Bear.findById(cub.parents.mother, function(err, mother) {
+			if(err)
+				res.send(err);
 
-		cb({ message: 'V1: Cub deleted!' });
+			mother.cubs.splice(mother.cubs.indexOf((cub._id).toString()), 1);
+
+			mother.save(function(err) {
+				if(err)
+					res.send(err);
+
+				Bear.findById(cub.parents.father, function(err, father) {
+					if(err)
+						res.send(err);
+
+					father.cubs.splice(father.cubs.indexOf((cub._id).toString()), 1);
+
+					father.save(function(err) {
+						if(err)
+							res.send(err);
+
+						Cub.remove({
+							_id: req.params.cub_id,
+							addedBy: req.user.id
+						}, function(err, cub) {
+							if(err)
+								res.send(err);
+
+							if(cub.addedBy != req.user.id)
+								cb({ message: "You are not the owner!" });
+
+							cb({ message: 'V1: Cub deleted!' });
+						});
+					});
+				});
+			});
+		});
 	});
 };
 
