@@ -39,7 +39,6 @@ module.exports = function(passport) {
 		passwordField: 'password',
 		passReqToCallback: true
 	}, function(req, email, password, done) {
-		console.log(req.body);
 		/**
 		 * Asynchronous
 		 * - User.findOne won't process unless data is sent back
