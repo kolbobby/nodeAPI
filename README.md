@@ -1,9 +1,17 @@
 # nodeAPI
 Simple NodeJS API
 
-# RUN
+<h3>RUN</h3>
+```
 [sudo] npm install
+```
 
-(testing) nodemon server.js
+(testing)
+```
+nodemon server.js
+```
 OR
-(production) node server.js
+(production)
+```
+node server.js
+```
