@@ -5,13 +5,11 @@ Simple NodeJS API
 ```
 [sudo] npm install
 ```
-
-(testing)
+Start server
 ```
 nodemon server.js
 ```
 OR
-(production)
 ```
 node server.js
 ```
