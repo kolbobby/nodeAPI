@@ -9,7 +9,6 @@
     "body-parser": "~1.0.1",
     "express": "~4.0.0",
     "express-session": "^1.6.3",
-    "jade": "*",
     "mongoose": "~3.6.13",
     "morgan": "*",
     "passport": "^0.2.0",
