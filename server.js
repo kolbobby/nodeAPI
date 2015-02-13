@@ -13,7 +13,7 @@ var express = require('express'),
 	bodyParser = require('body-parser'),
 	session = require('express-session');
 
-var configDB = require('./conf/database.js');
+var configDB = require('./conf/database');
 require('./conf/passport')(passport);
 
 /**
